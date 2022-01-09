@@ -1,4 +1,10 @@
 color bgColor = color(31, 0, 48);
+  
+int suntopy = 50;
+int sunbottomy = 450; 
+int suncenterx = 500;
+int suncentery = 250;
+int sunradius = 200;
 
 // RGB colors
 color[] sunColors = {
@@ -16,13 +22,13 @@ color[] sunColors = {
 
 void setup() {
   // 1. Set the size of your sketch
-  
+  size(1000,500);
 }
 
 
 void draw() {
   // 2. Draw the bgColor background color
-
+background(bgColor);
   /*
    * PART 1: Drawing the sun
    */
@@ -30,6 +36,10 @@ void draw() {
   // Draw an ellipse for the sun in the center of the window
   // Use fill(sunColors[0]) to make it yellow
   // Use noStroke() to remove the black outline
+  fill(sunColors[0]);
+  ellipse(500,250,400,400);
+  noStroke();
+
 
   // Do you see a yellow sun like in the 1st image?
   // If not, fix your code before proceeding.
@@ -68,7 +78,19 @@ void draw() {
       // variable that's returned
 
       // Set pixels[i] to the returned color 
+      
+      loadPixels();
+      
+      for(int i = 0; i < pixels.length; i++){
+           if(sunColors[0] == pixels[i]){     
+        int y = i / width;
+        float step = map(y, suntopy, sunbottomy, 0, 1);  
+          
+        pixels[i] = interpolateColor(sunColors, step);
+           }
+        }
 
+              updatePixels();
 
   // Call updatePixels() after your loop through all the pixels to
   // update the pixel colors
@@ -81,8 +103,8 @@ void draw() {
    * over the sun with the same color as the background.
    */
 
-  // Set the fill color to the background color
-
+  // Set the fill color to the background colorfill
+  
   // To draw each rectangle we need to find its x, y, width, height
   // *The y position can be any value within the sun:
   //   float y = width / 2;
@@ -94,7 +116,14 @@ void draw() {
   //   float w = 2 * sunRadius
 
   // Do you see a section missing from the sun like in the 3rd image?
-
+  
+  fill(bgColor);  
+  float y = height/2;
+  float h = 50;
+  float x = suncenterx - sunradius;
+  float w = 2 * sunradius;
+  rect(x,y,w,h);
+  noStroke();
 
   /*
    * PART 4: Moving the missing sun sections
@@ -144,8 +173,9 @@ void draw() {
    * See the Retro Sun webpage on the League level 3 website
    * for example code and classes.
    */
-}
 
+
+}
 // Placed here so it can be used by all classes
 // Variable step should be between 0 and 1, inclusive
 color interpolateColor(color[] arr, float step) {

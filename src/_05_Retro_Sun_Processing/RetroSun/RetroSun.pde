@@ -30,15 +30,15 @@ color[] sunColors = {
 void setup() {
   // 1. Set the size of your sketch
   size(1000,500);
-  y = height/2;
-  h = 30;
+  y = 400;
+  h = 60;
   x = suncenterx - sunradius;
   w = 2 * sunradius;
   sections = new ArrayList<Rectangle>();
   Rectangle rect0 = new Rectangle(x,y,w,h);
-  Rectangle rect1 = new Rectangle(x,y + 70,w,h);
-  Rectangle rect2 = new Rectangle(x,y + 100,w,h);
-  Rectangle rect3 = new Rectangle(x,y + 130,w,h);
+  Rectangle rect1 = new Rectangle(x,y + 60,w,h + 30);
+  Rectangle rect2 = new Rectangle(x,y + 120,w,h + 45);
+  Rectangle rect3 = new Rectangle(x,y + 180,w,h + 60);
 
   sections.add(rect0);
   sections.add(rect1);
@@ -234,15 +234,15 @@ class Rectangle {
   }
   
   void update(){
-    y = y - 30;
+    y = y - 0.5;
+    h = h - 0.15;
+    
     if(y < 250){
-      y = 400;
+      y = 580;
     }
-
-    h = h - 5;
-    if(h < 0){
-     h = 30; 
-    }
-  
+    
+    if (h < 0){
+      h = 60;
+  }
   }
 }
